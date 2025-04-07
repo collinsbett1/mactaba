@@ -1,0 +1,12 @@
+<div class="mb-6">
+  <%= form_with(url: books_path, method: :get, class: "flex gap-2") do |f| %>
+    <%= f.text_field :query, 
+                     value: params[:query],
+                     placeholder: "Search by title, author, or ISBN",
+                     class: "flex-1 rounded-lg border-gray-300 shadow-sm" %>
+    <%= f.submit "Search",
+                 class: "px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" %>
+  <% end %>
+</div>
+
+<!-- ... rest of the existing index view code ... --> 

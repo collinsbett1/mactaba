@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Mactaba" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-gray-100">
+    <nav class="bg-white shadow-lg">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between h-16">
+          <div class="flex">
+            <%= link_to 'Library', root_path, class: 'flex-shrink-0 flex items-center text-xl font-bold text-gray-800' %>
+          </div>
+          <div class="flex items-center">
+            <% if current_user %>
+              <%= link_to 'My Books', borrowings_path, class: 'text-gray-600 hover:text-gray-900 px-3 py-2' %>
+              <%= button_to 'Logout', logout_path, method: :delete, class: 'text-gray-600 hover:text-gray-900 px-3 py-2' %>
+            <% else %>
+              <%= link_to 'Login', login_path, class: 'text-gray-600 hover:text-gray-900 px-3 py-2' %>
+              <%= link_to 'Sign Up', signup_path, class: 'text-gray-600 hover:text-gray-900 px-3 py-2' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto mt-6 px-4">
+      <% flash.each do |name, msg| %>
+        <div class="<%= name == 'notice' ? 'bg-green-100 border-green-400 text-green-700' : 'bg-red-100 border-red-400 text-red-700' %> border px-4 py-3 rounded relative mb-4" role="alert">
+          <%= msg %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>

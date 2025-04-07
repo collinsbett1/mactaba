@@ -1,0 +1,23 @@
+<h1>My Borrowed Books</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Due Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @borrowings.each do |borrowing| %>
+      <tr>
+        <td><%= borrowing.book.title %></td>
+        <td><%= borrowing.due_date.strftime('%B %d, %Y') %></td>
+        <td>
+          <%= button_to 'Return', return_borrowing_path(borrowing), method: :patch %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table> 

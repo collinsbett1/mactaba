@@ -1,0 +1,9 @@
+<h1>Book Due Date Reminder</h1>
+
+<p>Dear <%= @user.email %>,</p>
+
+<p>This is a reminder that the book "<%= @book.title %>" is due on <%= @borrowing.due_date.strftime('%B %d, %Y') %>.</p>
+
+<p>Please return it to the library before the due date to avoid any late fees.</p>
+
+<p>Thank you for using our library!</p> 
